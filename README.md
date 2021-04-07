@@ -1,2 +1,2 @@
-# snearch
+# Snearch
 Sneakers search bot
