@@ -84,14 +84,16 @@ class AE3(nn.Module):
                                                                   stride=3,
                                                                   padding=(0,
                                                                            1)))
-        self.decoder_seq.add_module('deconv3_relu', nn.ReLU())
+
+        self.alpha = nn.Parameter(torch.FloatTensor([1]))
+        self.bias = nn.Parameter(torch.FloatTensor([0]))
 
     def encode(self, x):
         self.encoded = self.encoder_seq(x)
         return self.encoded
 
     def decode(self, x):
-        self.decoded = self.decoder_seq(x)
+        self.decoded = self.decoder_seq(x) * self.alpha + self.bias
         return self.decoded
 
     def forward(self, x):
@@ -100,7 +102,5 @@ class AE3(nn.Module):
         return x
 
 
-def load_model(path="model.pt"):
-    model = torch.load(path, map_location=torch.device('cpu'))
-    print('model loaded')
-    return model
+def load_model(path):
+    return torch.load("../" + path, map_location=torch.device('cpu'))

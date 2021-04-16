@@ -6,9 +6,6 @@ import torchvision.transforms as transforms
 import hnswlib
 import tqdm
 import re
-import os
-import random
-from collections import defaultdict
 
 
 def get_label(img_path, meta):
@@ -60,7 +57,7 @@ def knn_samples(csv_path, img_paths, model):
     samples = np.array(samples)
 
     print('loaded samples')
-    return samples, labels, img_paths
+    return samples, labels
 
 
 def count_distances(samples, n_top):
